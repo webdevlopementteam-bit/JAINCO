@@ -129,6 +129,12 @@ export default function Navbar() {
     });
   };
 
+  // Helper specifically to check if a category itself (not its children) matches the pathname
+  const isCategorySelfActive = (cat) => {
+    const catPath = cat.link;
+    return pathname === catPath || pathname.startsWith(`${catPath}/`);
+  };
+
   // Helper specifically for subcategories to check if they or their nested items are active
   const isSubOrChildActive = (sub) => {
     const subPath = sub.link;
@@ -141,6 +147,12 @@ export default function Navbar() {
       });
     }
     return false;
+  };
+
+  // Helper specifically to check if a subcategory itself (not its nested items) matches the pathname
+  const isSubSelfActive = (sub) => {
+    const subPath = sub.link;
+    return pathname === subPath || pathname.startsWith(`${subPath}/`);
   };
 
   useEffect(() => {
@@ -447,7 +459,7 @@ export default function Navbar() {
               className={`block font-medium text-[15px] uppercase py-2 ${
                 pathname.startsWith("/products") ||
                 categories.some((cat) => isCategoryOrChildActive(cat))
-                  ? "text-[#facc15] font-semibold"
+                  ? "text-white"
                   : "text-white"
               }`}
             >
@@ -458,7 +470,7 @@ export default function Navbar() {
               {categories.map((cat, idx) => {
                 const catPath = cat.link;
                 const isCatExpanded = mobileActiveCategory === idx;
-                const isThisCatActive = isCategoryOrChildActive(cat);
+                const isThisCatActive = isCategorySelfActive(cat);
                 const hasSubcategories = cat.subcategories.length > 0;
 
                 return (
@@ -510,7 +522,7 @@ export default function Navbar() {
                       <div className="pl-3 space-y-1.5 py-1 border-l border-blue-900/40">
                         {cat.subcategories.map((sub, sIdx) => {
                           const subPath = sub.link;
-                          const isThisSubActive = isSubOrChildActive(sub);
+                          const isThisSubActive = isSubSelfActive(sub);
                           const isNestedExpanded =
                             mobileActiveSubcategory === `${idx}-${sIdx}`;
                           const hasNestedItems =
