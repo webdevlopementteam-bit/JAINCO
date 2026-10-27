@@ -109,7 +109,6 @@ export default function Navbar() {
 
   const isActive = (path) => pathname === path;
 
-  // Helper to check if a category or any of its sub/nested children matches the current pathname
   const isCategoryOrChildActive = (cat) => {
     const catPath = cat.link;
     if (pathname === catPath || pathname.startsWith(`${catPath}/`)) return true;
@@ -129,13 +128,11 @@ export default function Navbar() {
     });
   };
 
-  // Helper specifically to check if a category itself (not its children) matches the pathname
   const isCategorySelfActive = (cat) => {
     const catPath = cat.link;
     return pathname === catPath || pathname.startsWith(`${catPath}/`);
   };
 
-  // Helper specifically for subcategories to check if they or their nested items are active
   const isSubOrChildActive = (sub) => {
     const subPath = sub.link;
     if (pathname === subPath || pathname.startsWith(`${subPath}/`)) return true;
@@ -149,7 +146,6 @@ export default function Navbar() {
     return false;
   };
 
-  // Helper specifically to check if a subcategory itself (not its nested items) matches the pathname
   const isSubSelfActive = (sub) => {
     const subPath = sub.link;
     return pathname === subPath || pathname.startsWith(`${subPath}/`);
@@ -234,7 +230,7 @@ export default function Navbar() {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute top-full left-0 w-80 bg-white text-gray-900 shadow-2xl rounded-md py-2 border border-gray-100 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-72 bg-white text-gray-900 shadow-2xl rounded-md py-2 border border-gray-100 z-50">
                   {categories.map((cat, idx) => {
                     const catPath = cat.link;
                     const catActive = isCategoryOrChildActive(cat);
@@ -252,7 +248,7 @@ export default function Navbar() {
                       >
                         {hasSubcategories ? (
                           <div
-                            className={`flex items-center justify-between px-4 py-3 cursor-pointer text-lg font-medium border-b border-gray-100 last:border-b-0 transition-colors group/link ${
+                            className={`flex items-center justify-between px-4 py-3 cursor-pointer text-base font-medium border-b border-gray-100 last:border-b-0 transition-colors group/link ${
                               catActive
                                 ? "text-[#facc15] bg-[#061036] font-semibold"
                                 : "hover:bg-[#061036] text-gray-800"
@@ -278,7 +274,7 @@ export default function Navbar() {
                         ) : (
                           <Link
                             href={catPath}
-                            className={`flex items-center justify-between px-4 py-3 cursor-pointer text-lg font-medium border-b border-gray-100 last:border-b-0 transition-colors group/link ${
+                            className={`flex items-center justify-between px-4 py-3 cursor-pointer text-base font-medium border-b border-gray-100 last:border-b-0 transition-colors group/link ${
                               catActive
                                 ? "text-[#facc15] bg-[#061036] font-semibold"
                                 : "hover:bg-[#061036] text-gray-800"
@@ -319,7 +315,7 @@ export default function Navbar() {
                                   >
                                     {hasNestedItems ? (
                                       <div
-                                        className={`flex items-center justify-between px-4 py-3 text-lg font-medium border-b border-gray-50 last:border-b-0 capitalize transition-colors hover:bg-[#061036] hover:text-[#facc15] cursor-pointer ${
+                                        className={`flex items-center justify-between px-4 py-3 text-base font-medium border-b border-gray-50 last:border-b-0 capitalize transition-colors hover:bg-[#061036] hover:text-[#facc15] cursor-pointer ${
                                           subActive
                                             ? "text-[#facc15] bg-[#061036] font-semibold"
                                             : "text-gray-700"
@@ -337,7 +333,7 @@ export default function Navbar() {
                                     ) : (
                                       <Link
                                         href={subPath}
-                                        className={`flex items-center justify-between px-4 py-3 text-lg font-medium border-b border-gray-50 last:border-b-0 capitalize transition-colors hover:bg-[#061036] hover:text-[#facc15] ${
+                                        className={`flex items-center justify-between px-4 py-3 text-base font-medium border-b border-gray-50 last:border-b-0 capitalize transition-colors hover:bg-[#061036] hover:text-[#facc15] ${
                                           subActive
                                             ? "text-[#facc15] bg-[#061036] font-semibold"
                                             : "text-gray-700"
@@ -363,7 +359,7 @@ export default function Navbar() {
                                               <Link
                                                 key={nIdx}
                                                 href={nestedPath}
-                                                className={`block px-4 py-2.5 text-lg font-medium border-b border-gray-50 last:border-b-0 transition-colors hover:bg-[#061036] hover:text-[#facc15] ${
+                                                className={`block px-4 py-2.5 text-base font-medium border-b border-gray-50 last:border-b-0 transition-colors hover:bg-[#061036] hover:text-[#facc15] ${
                                                   nestedActive
                                                     ? "text-[#facc15] bg-[#061036] font-semibold"
                                                     : "text-gray-700"
@@ -455,14 +451,7 @@ export default function Navbar() {
 
           {/* Mobile Products Category Section */}
           <div className="space-y-1">
-            <span
-              className={`block font-medium text-[15px] uppercase py-2 ${
-                pathname.startsWith("/products") ||
-                categories.some((cat) => isCategoryOrChildActive(cat))
-                  ? "text-white"
-                  : "text-white"
-              }`}
-            >
+            <span className="block font-medium text-[15px] uppercase py-2 text-white">
               Products
             </span>
 

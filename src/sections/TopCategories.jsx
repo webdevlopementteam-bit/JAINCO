@@ -23,13 +23,13 @@ export default function TopCategories() {
       id: 3,
       name: "WELDING HELMET",
       image: "/home/t3.png",
-      slug: "welding-helmet",
+      slug: "welding-hand-screen-welding-helmet-red-fibre",
     },
     {
       id: 4,
       name: "GAS CUTTING TORCH",
       image: "/home/t4.png",
-      slug: "gas-cutting-torch",
+      slug: "manual-cutting-blow-pipe",
     },
     {
       id: 5,
